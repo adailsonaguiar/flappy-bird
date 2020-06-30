@@ -12,10 +12,10 @@ const bird = {
   height: 24,
   x: 10,
   y: 50,
-  velocity:0,
-  gravity:0.15,
+  velocity: 0,
+  gravity: 0.15,
   update() {
-    bird.velocity = bird.velocity +bird.gravity;
+    bird.velocity = bird.velocity + bird.gravity;
     bird.y = bird.y + bird.velocity;
   },
   draw() {
@@ -104,33 +104,70 @@ const ground = {
   },
 };
 
-// function CutSprite(spriteImage, spriteX, spriteY, width, height, x, y) {
-//   this.teste = () => {
-//     context.drawImage(
-//       spriteImage,
-//       spriteX,
-//       spriteY,
-//       width,
-//       height,
-//       x,
-//       y,
-//       spriteX,
-//       spriteY
-//     );
-//   };
-// }
+const gameInit = {
+  spriteImage: sprites,
+  spriteX: 134,
+  spriteY: 0,
+  width: 174,
+  height: 152,
+  x: canvas.width / 2 - 174 / 2,
+  y: 50,
+  draw() {
+    context.drawImage(
+      gameInit.spriteImage,
+      gameInit.spriteX,
+      gameInit.spriteY,
+      gameInit.width,
+      gameInit.height,
+      gameInit.x,
+      gameInit.y,
+      gameInit.width,
+      gameInit.height
+    );
+  },
+};
 
-// const bird = new CutSprite(sprites, 0, 0, 33, 24, 10, 50);
+let activeScene = {};
+function changeScene(newScene) {
+  activeScene = newScene;
+}
+const Scenes = {
+  START: {
+    draw() {
+      background.draw();
+      ground.draw();
+      bird.draw();
+      gameInit.draw();
+    },
+    click() {
+      changeScene(Scenes.GAME);
+    },
+    update() {},
+  },
+};
+
+Scenes.GAME = {
+  draw() {
+    background.draw();
+    ground.draw();
+    bird.draw();
+  },
+  update() {
+    bird.update();
+  },
+};
 
 function loop() {
-  background.draw();
-  ground.draw();
-  bird.update();
-  bird.draw();
+  activeScene.draw();
+  activeScene.update();
   requestAnimationFrame(loop);
 }
 
-function handleClick() {}
+function handleClick() {
+  if (activeScene.click()) activeScene.click();
+}
 canvas.addEventListener('click', handleClick, false);
+
+changeScene(Scenes.START);
 
 loop();
