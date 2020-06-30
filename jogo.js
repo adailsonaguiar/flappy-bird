@@ -1,37 +1,49 @@
 const sprites = new Image();
 sprites.src = './sprites.png';
+const SONG_HIT = new Audio('./hit.wav');
 
 const canvas = document.querySelector('.game-canvas');
 const context = canvas.getContext('2d');
 
-const bird = {
-  spriteImage: sprites,
-  spriteX: 0,
-  spriteY: 0,
-  width: 33,
-  height: 24,
-  x: 10,
-  y: 50,
-  velocity: 0,
-  gravity: 0.15,
-  update() {
-    bird.velocity = bird.velocity + bird.gravity;
-    bird.y = bird.y + bird.velocity;
-  },
-  draw() {
-    context.drawImage(
-      bird.spriteImage,
-      bird.spriteX,
-      bird.spriteY,
-      bird.width,
-      bird.height,
-      bird.x,
-      bird.y,
-      bird.width,
-      bird.height
-    );
-  },
-};
+function createBird() {
+  const bird = {
+    spriteImage: sprites,
+    spriteX: 0,
+    spriteY: 0,
+    width: 33,
+    height: 24,
+    x: 10,
+    y: 50,
+    velocity: 0,
+    gravity: 0.15,
+    update() {
+      if (collide(bird, ground)) {
+        SONG_HIT.play();
+        setTimeout(() => changeScene(Scenes.START), 500);
+        return;
+      }
+      bird.velocity = bird.velocity + bird.gravity;
+      bird.y = bird.y + bird.velocity;
+    },
+    jump() {
+      bird.velocity = -4.6;
+    },
+    draw() {
+      context.drawImage(
+        bird.spriteImage,
+        bird.spriteX,
+        bird.spriteY,
+        bird.width,
+        bird.height,
+        bird.x,
+        bird.y,
+        bird.width,
+        bird.height
+      );
+    },
+  };
+  return bird;
+}
 
 const background = {
   spriteImage: sprites,
@@ -131,18 +143,23 @@ let activeScene = {};
 function changeScene(newScene) {
   activeScene = newScene;
 }
+
+let currentBird;
 const Scenes = {
   START: {
     draw() {
+      currentBird = createBird();
       background.draw();
       ground.draw();
-      bird.draw();
+      currentBird.draw();
       gameInit.draw();
     },
     click() {
       changeScene(Scenes.GAME);
     },
-    update() {},
+    update() {
+      currentBird = createBird();
+    },
   },
 };
 
@@ -150,12 +167,21 @@ Scenes.GAME = {
   draw() {
     background.draw();
     ground.draw();
-    bird.draw();
+    currentBird.draw();
+  },
+  click() {
+    currentBird.jump();
   },
   update() {
-    bird.update();
+    currentBird.update();
   },
 };
+
+function collide(element1, element2) {
+  const element1Y = element1.y + element1.height;
+  if (element1Y >= element2.y) return true;
+  return false;
+}
 
 function loop() {
   activeScene.draw();
