@@ -1,6 +1,6 @@
 const sprites = new Image();
-sprites.src = './sprites.png';
-const SONG_HIT = new Audio('./hit.wav');
+sprites.src = './assets/sprites.png';
+const SONG_HIT = new Audio('./assets/songs/hit.wav');
 
 const canvas = document.querySelector('.game-canvas');
 const context = canvas.getContext('2d');
@@ -17,7 +17,7 @@ function createBird() {
     velocity: 0,
     gravity: 0.15,
     update() {
-      if (collide(bird, ground)) {
+      if (collide(bird, currentGround)) {
         SONG_HIT.play();
         setTimeout(() => changeScene(Scenes.START), 500);
         return;
@@ -43,6 +43,44 @@ function createBird() {
     },
   };
   return bird;
+}
+
+function createGround() {
+  const ground = {
+    spriteImage: sprites,
+    spriteX: 0,
+    spriteY: 610,
+    width: 224,
+    height: 112,
+    x: 0,
+    y: canvas.height - 112,
+    draw() {
+      context.drawImage(
+        ground.spriteImage,
+        ground.spriteX,
+        ground.spriteY,
+        ground.width,
+        ground.height,
+        ground.x,
+        ground.y,
+        ground.width,
+        ground.height
+      );
+
+      context.drawImage(
+        ground.spriteImage,
+        ground.spriteX,
+        ground.spriteY,
+        ground.width,
+        ground.height,
+        ground.x + ground.width,
+        ground.y,
+        ground.width,
+        ground.height
+      );
+    },
+  };
+  return ground;
 }
 
 const background = {
@@ -81,41 +119,6 @@ const background = {
   },
 };
 
-const ground = {
-  spriteImage: sprites,
-  spriteX: 0,
-  spriteY: 610,
-  width: 224,
-  height: 112,
-  x: 0,
-  y: canvas.height - 112,
-  draw() {
-    context.drawImage(
-      ground.spriteImage,
-      ground.spriteX,
-      ground.spriteY,
-      ground.width,
-      ground.height,
-      ground.x,
-      ground.y,
-      ground.width,
-      ground.height
-    );
-
-    context.drawImage(
-      ground.spriteImage,
-      ground.spriteX,
-      ground.spriteY,
-      ground.width,
-      ground.height,
-      ground.x + ground.width,
-      ground.y,
-      ground.width,
-      ground.height
-    );
-  },
-};
-
 const gameInit = {
   spriteImage: sprites,
   spriteX: 134,
@@ -145,12 +148,14 @@ function changeScene(newScene) {
 }
 
 let currentBird;
+let currentGround;
 const Scenes = {
   START: {
     draw() {
       currentBird = createBird();
+      currentGround = createGround();
       background.draw();
-      ground.draw();
+      currentGround.draw();
       currentBird.draw();
       gameInit.draw();
     },
@@ -166,7 +171,7 @@ const Scenes = {
 Scenes.GAME = {
   draw() {
     background.draw();
-    ground.draw();
+    currentGround.draw();
     currentBird.draw();
   },
   click() {
