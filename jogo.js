@@ -2,6 +2,7 @@ const sprites = new Image();
 sprites.src = './assets/sprites.png';
 const SONG_HIT = new Audio('./assets/songs/hit.wav');
 
+let frame = 0;
 const canvas = document.querySelector('.game-canvas');
 const context = canvas.getContext('2d');
 
@@ -28,11 +29,30 @@ function createBird() {
     jump() {
       bird.velocity = -4.6;
     },
+    sceneBird: [
+      { spriteX: 0, spriteY: 0 },
+      { spriteX: 0, spriteY: 26 },
+      { spriteX: 0, spriteY: 52 },
+    ],
+    currentFrameBird: 0,
+    updateFrameBird() {
+      const FRAME_INTERVAL = 5;
+      const BEATING_WINGS = frame % FRAME_INTERVAL === 0;
+      if (BEATING_WINGS) {
+        if (bird.currentFrameBird < 2) {
+          bird.currentFrameBird++;
+        } else {
+          bird.currentFrameBird = 0;
+        }
+      }
+    },
     draw() {
+      bird.updateFrameBird();
+      const { spriteX, spriteY } = bird.sceneBird[bird.currentFrameBird];
       context.drawImage(
         bird.spriteImage,
-        bird.spriteX,
-        bird.spriteY,
+        spriteX,
+        spriteY,
         bird.width,
         bird.height,
         bird.x,
@@ -153,15 +173,18 @@ const gameInit = {
 let activeScene = {};
 function changeScene(newScene) {
   activeScene = newScene;
+  if (activeScene.init) activeScene.init();
 }
 
 let currentBird;
 let currentGround;
 const Scenes = {
   START: {
-    draw() {
+    init() {
       currentBird = createBird();
       currentGround = createGround();
+    },
+    draw() {
       background.draw();
       currentGround.draw();
       currentBird.draw();
@@ -198,6 +221,7 @@ function collide(element1, element2) {
 function loop() {
   activeScene.draw();
   activeScene.update();
+  frame++;
   requestAnimationFrame(loop);
 }
 
