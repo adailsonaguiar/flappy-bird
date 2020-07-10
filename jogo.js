@@ -79,6 +79,14 @@ function createGround() {
         ground.height
       );
     },
+    update() {
+      const MOVE_GROUND = 1;
+      const movement = ground.x - MOVE_GROUND;
+      const repeat = ground.width / 2;
+
+      if (movement > -repeat) ground.x = movement;
+      else ground.x = 0;
+    },
   };
   return ground;
 }
@@ -162,9 +170,7 @@ const Scenes = {
     click() {
       changeScene(Scenes.GAME);
     },
-    update() {
-      currentBird = createBird();
-    },
+    update() {},
   },
 };
 
@@ -179,6 +185,7 @@ Scenes.GAME = {
   },
   update() {
     currentBird.update();
+    currentGround.update();
   },
 };
 
