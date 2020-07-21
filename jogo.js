@@ -18,7 +18,7 @@ function createBird() {
     velocity: 0,
     gravity: 0.15,
     update() {
-      if (collide(bird, currentGround)) {
+      if (collideY(bird, currentGround)) {
         SONG_HIT.play();
         setTimeout(() => changeScene(Scenes.START), 500);
         return;
@@ -111,6 +111,88 @@ function createGround() {
   return ground;
 }
 
+function createPipes() {
+  const pipes = {
+    spriteImage: sprites,
+    width: 52,
+    height: 400,
+    pipeBottom: {
+      spriteX: 0,
+      spriteY: 169,
+    },
+    pipeTop: {
+      spriteX: 52,
+      spriteY: 169,
+    },
+    space: 80,
+    draw() {
+      pipes.pairs.forEach(function (pair) {
+        const drawYRandom = pair.y;
+        const pipeTopX = pair.x;
+        const pipeTopY = drawYRandom;
+
+        context.drawImage(
+          pipes.spriteImage,
+          pipes.pipeTop.spriteX,
+          pipes.pipeTop.spriteY,
+          pipes.width,
+          pipes.height,
+          pipeTopX,
+          pipeTopY,
+          pipes.width,
+          pipes.height
+        );
+
+        const spacingTop = 90;
+        const pipeBottomX = pair.x;
+        const pipeBottomY = pipes.height + spacingTop + drawYRandom;
+        context.drawImage(
+          pipes.spriteImage,
+          pipes.pipeBottom.spriteX,
+          pipes.pipeBottom.spriteY,
+          pipes.width,
+          pipes.height,
+          pipeBottomX,
+          pipeBottomY,
+          pipes.width,
+          pipes.height
+        );
+        pair.pipeTop = { x: pipeTopX, y: pipes.height + pipeTopY };
+        pair.pipeBottom = { x: pipeBottomX, y: pipeBottomY };
+      });
+    },
+    pairs: [],
+    update() {
+      const framesProxPipes = frame % 100 === 0;
+      if (framesProxPipes) {
+        pipes.pairs.push({
+          x: canvas.width,
+          // y: -250 * Math.random() + 1,
+          y: -300,
+        });
+      }
+
+      pipes.pairs.forEach(function (pair) {
+        pair.x = pair.x - 2;
+
+        if (collideX(currentBird, pair)) {
+          if (currentBird.y <= pair.pipeTop.y) {
+            SONG_HIT.play();
+            setTimeout(() => changeScene(Scenes.START), 500);
+          }
+          if (currentBird.y + currentBird.height >= pair.pipeBottom.y) {
+            SONG_HIT.play();
+            setTimeout(() => changeScene(Scenes.START), 500);
+          }
+        }
+
+        if (pair.x + pipes.width <= 0) pipes.pairs.shift();
+      });
+    },
+  };
+  return pipes;
+}
+
 const background = {
   spriteImage: sprites,
   spriteX: 390,
@@ -178,11 +260,14 @@ function changeScene(newScene) {
 
 let currentBird;
 let currentGround;
+let currentPipes;
+
 const Scenes = {
   START: {
     init() {
       currentBird = createBird();
       currentGround = createGround();
+      currentPipes = createPipes();
     },
     draw() {
       background.draw();
@@ -200,6 +285,7 @@ const Scenes = {
 Scenes.GAME = {
   draw() {
     background.draw();
+    currentPipes.draw();
     currentGround.draw();
     currentBird.draw();
   },
@@ -209,12 +295,18 @@ Scenes.GAME = {
   update() {
     currentBird.update();
     currentGround.update();
+    currentPipes.update();
   },
 };
 
-function collide(element1, element2) {
+function collideY(element1, element2) {
   const element1Y = element1.y + element1.height;
   if (element1Y >= element2.y) return true;
+  return false;
+}
+
+function collideX(element1, element2) {
+  if (element1.x >= element2.x) return true;
   return false;
 }
 
