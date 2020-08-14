@@ -6,12 +6,12 @@
 
 ## :pencil: Features
 
-:ballot_box_with_check: Canvas para desenhos na tela
-:ballot_box_with_check: Sons
-:ballot_box_with_check: Capturas de eventos do mouse
-:white_large_square: Capturas de eventos do teclado
-:white_large_square: Capturas de toques na tela
-:white_large_square: Pontuaçao do jogador
+- :ballot_box_with_check: Canvas para desenhos na tela
+- :ballot_box_with_check: Sons
+- :ballot_box_with_check: Capturas de eventos do mouse
+- :white_large_square: Capturas de eventos do teclado
+- :white_large_square: Capturas de toques na tela
+- :white_large_square: Pontuaçao do jogador
 
 ## :gem: Contribute
 
