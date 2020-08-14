@@ -1,6 +1,6 @@
-# :copyright: Ar|Livre
+# :copyright: Flappy Bird
 
-:arrow_right_hook: **Curta** esse momento nostálgico junto com seu amiguinho voador. Só não deixe ele encontar nos canos hein! [Site](<[https://adailsonaguiar.github.io/flappy-bird/](https://adailsonaguiar.github.io/flappy-bird/)>)
+:arrow_right_hook: **Curta** esse momento nostálgico junto com seu amiguinho voador. Só não deixe ele encontar nos canos hein! **[PLAY](<(https://adailsonaguiar.github.io/flappy-bird/)>)**
 
 ![Home mobile](https://raw.githubusercontent.com/adailsonaguiar/flappy-bird/master/screenshots/Capturar.PNG)
 
