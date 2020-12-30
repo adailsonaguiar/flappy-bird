@@ -5,6 +5,7 @@ function collideY(element1, element2) {
 }
 
 export default function createBird(game) {
+  game.currentBird = {};
   game.createBird = () => {
     const bird = {
       spriteImage: game.sprites,

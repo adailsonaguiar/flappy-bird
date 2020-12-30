@@ -4,6 +4,8 @@ function collideX(element1, element2) {
 }
 
 export default function createPipes(game) {
+  game.currentPipes = {};
+
   game.createPipes = () => {
     const pipes = {
       spriteImage: game.sprites,

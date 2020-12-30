@@ -1,4 +1,5 @@
 export default function createGround(game) {
+  game.currentGround = {};
   game.createGround = () => {
     const ground = {
       spriteImage: game.sprites,

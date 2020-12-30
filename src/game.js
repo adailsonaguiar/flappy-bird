@@ -8,11 +8,7 @@ import createGameInit from "./gameInit.js";
 import createScenes from "./scenes.js";
 import createSong from "./songs.js";
 
-const game = {
-  currentBird: {},
-  currentGround: {},
-  currentPipes: {},
-};
+const game = {};
 
 createSprite(game);
 createCanvas(game);
