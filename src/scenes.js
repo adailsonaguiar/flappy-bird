@@ -10,7 +10,7 @@ export default function createScenes(game) {
     START: {
       init() {
         game.currentBird = game.createBird();
-        game.currentPipes = game.createPipes();
+        // game.currentPipes = game.createPipes();
       },
       draw() {
         game.background.draw();
@@ -27,7 +27,7 @@ export default function createScenes(game) {
       draw() {
         game.background.draw();
         game.currentBird.draw();
-        game.currentPipes.draw();
+        game.pipes.draw();
         game.ground.draw();
       },
       click() {
@@ -36,7 +36,7 @@ export default function createScenes(game) {
       update() {
         game.currentBird.update();
         game.ground.update();
-        game.currentPipes.update();
+        game.pipes.update();
       },
     },
   };
