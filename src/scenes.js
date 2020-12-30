@@ -14,7 +14,7 @@ export default function createScenes(game) {
         game.currentPipes = game.createPipes();
       },
       draw() {
-        game.makeBackground().draw();
+        game.background.draw();
         game.currentGround.draw();
         game.currentBird.draw();
         game.gameInit.draw();
@@ -26,7 +26,7 @@ export default function createScenes(game) {
     },
     GAME: {
       draw() {
-        game.makeBackground().draw();
+        game.background.draw();
         game.currentBird.draw();
         game.currentPipes.draw();
         game.currentGround.draw();
