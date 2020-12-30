@@ -20,18 +20,19 @@ game = {
 };
 const SONG_HIT = createSong(game);
 const { frame, gameInit } = createGameInit(game);
-createSong(game);
 const background = createBrackground(game);
+const { currentGround, ground } = createGround(game);
+createPipes(game);
 game = {
   ...game,
   SONG_HIT,
   frame,
   gameInit,
   background,
+  currentGround,
+  ground,
 };
-createGround(game);
 createBird(game);
-createPipes(game);
 createScenes(game);
 
 function loop() {

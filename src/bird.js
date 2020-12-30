@@ -18,7 +18,8 @@ export default function createBird(game) {
       velocity: 0,
       gravity: 0.15,
       update() {
-        if (collideY(bird, game.currentGround)) {
+        console.log(game.ground);
+        if (collideY(bird, game.ground)) {
           game.SONG_HIT.play();
           setTimeout(() => game.changeScene(game.Scenes.START), 500);
           return;
