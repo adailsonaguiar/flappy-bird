@@ -8,15 +8,27 @@ import createGameInit from "./gameInit.js";
 import createScenes from "./scenes.js";
 import createSong from "./songs.js";
 
-const game = {};
+let game = {};
 
 const sprites = createSprite(game);
 const { canvas, context } = createCanvas(game);
+game = {
+  ...game,
+  sprites,
+  canvas,
+  context,
+};
 const SONG_HIT = createSong(game);
-createGameInit(game);
+const { frame, gameInit } = createGameInit(game);
 createSong(game);
 const background = createBrackground(game);
-game = { ...game, sprites, canvas, context, SONG_HIT, background };
+game = {
+  ...game,
+  SONG_HIT,
+  frame,
+  gameInit,
+  background,
+};
 createGround(game);
 createBird(game);
 createPipes(game);

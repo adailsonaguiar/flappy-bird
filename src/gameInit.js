@@ -1,7 +1,7 @@
 export default function createGameInit(game) {
-  game.frame = 0;
+  const frame = 0;
 
-  game.gameInit = {
+  const gameInit = {
     spriteImage: game.sprites,
     spriteX: 134,
     spriteY: 0,
@@ -11,16 +11,18 @@ export default function createGameInit(game) {
     y: 50,
     draw() {
       game.context.drawImage(
-        game.gameInit.spriteImage,
-        game.gameInit.spriteX,
-        game.gameInit.spriteY,
-        game.gameInit.width,
-        game.gameInit.height,
-        game.gameInit.x,
-        game.gameInit.y,
-        game.gameInit.width,
-        game.gameInit.height
+       this.spriteImage,
+       this.spriteX,
+       this.spriteY,
+       this.width,
+       this.height,
+       this.x,
+       this.y,
+       this.width,
+       this.height
       );
     },
   };
+
+  return { frame, gameInit };
 }
