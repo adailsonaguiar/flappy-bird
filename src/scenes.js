@@ -10,7 +10,6 @@ export default function createScenes(game) {
     START: {
       init() {
         game.currentBird = game.createBird();
-        // game.currentGround = game.ground;
         game.currentPipes = game.createPipes();
       },
       draw() {

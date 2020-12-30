@@ -1,5 +1,4 @@
 export default function createGround(game) {
-  const currentGround = {};
   const ground = {
     spriteImage: game.sprites,
     spriteX: 0,
@@ -42,5 +41,5 @@ export default function createGround(game) {
       else ground.x = 0;
     },
   };
-  return { currentGround, ground };
+  return { ground };
 }

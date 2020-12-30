@@ -21,7 +21,7 @@ game = {
 const SONG_HIT = createSong(game);
 const { frame, gameInit } = createGameInit(game);
 const background = createBrackground(game);
-const { currentGround, ground } = createGround(game);
+const {  ground } = createGround(game);
 createPipes(game);
 game = {
   ...game,
@@ -29,7 +29,6 @@ game = {
   frame,
   gameInit,
   background,
-  currentGround,
   ground,
 };
 createBird(game);
