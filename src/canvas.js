@@ -1,5 +1,6 @@
-export default function createCanvas(game) {
-  game.canvas = document.querySelector(".game-canvas");
-  game.context = game.canvas.getContext("2d");
-  game.context.fillStyle = "#70c5ce";
+export default function createCanvas() {
+  const canvas = document.querySelector(".game-canvas");
+  const context = canvas.getContext("2d");
+
+  return { canvas, context };
 }

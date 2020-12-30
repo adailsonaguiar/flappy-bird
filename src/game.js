@@ -11,12 +11,12 @@ import createSong from "./songs.js";
 const game = {};
 
 const sprites = createSprite(game);
-createCanvas(game);
-createSong(game);
+const { canvas, context } = createCanvas(game);
+const SONG_HIT = createSong(game);
 createGameInit(game);
 createSong(game);
 const background = createBrackground(game);
-game = { ...game, sprites, background };
+game = { ...game, sprites, canvas, context, SONG_HIT, background };
 createGround(game);
 createBird(game);
 createPipes(game);
