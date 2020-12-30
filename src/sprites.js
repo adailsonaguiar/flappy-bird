@@ -1,4 +1,5 @@
-export default function createSprite(game) {
-  game.sprites = new Image();
-  game.sprites.src = "./assets/sprites.png";
+export default function createSprite() {
+  const sprites = new Image();
+  sprites.src = "./assets/sprites.png";
+  return sprites;
 }

@@ -10,13 +10,13 @@ import createSong from "./songs.js";
 
 const game = {};
 
-createSprite(game);
+const sprites = createSprite(game);
 createCanvas(game);
 createSong(game);
 createGameInit(game);
 createSong(game);
 const background = createBrackground(game);
-game = { ...game, background };
+game = { ...game, sprites, background };
 createGround(game);
 createBird(game);
 createPipes(game);
