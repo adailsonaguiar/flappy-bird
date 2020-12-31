@@ -10,30 +10,33 @@ import createSong from "./songs.js";
 
 let game = {};
 
-const sprites = createSprite(game);
-const { canvas, context } = createCanvas(game);
-game = {
-  ...game,
-  sprites,
-  canvas,
-  context,
-};
-const SONG_HIT = createSong(game);
-const { frame, gameInit } = createGameInit(game);
-const background = createBrackground(game);
-const { ground } = createGround(game);
-const pipes = createPipes(game);
-game = {
-  ...game,
-  SONG_HIT,
-  frame,
-  gameInit,
-  background,
-  ground,
-  pipes,
-};
-createBird(game);
-createScenes(game);
+function gameFactory(game, newProperties) {
+  return { ...game, ...newProperties };
+}
+
+game.sprites = createSprite();
+
+game = gameFactory(game, createCanvas(game));
+
+game = gameFactory(game, { SONG_HIT: createSong(game) });
+
+// const { frame, gameInit } = createGameInit(game);
+// game.frame = frame;
+// game.gameInit = gameInit;
+
+game = gameFactory(game, createGameInit(game));
+
+
+game.background = createBrackground(game);
+
+game.createGround = createGround(game);
+
+game.createBird = createBird(game);
+
+game.createPipes = createPipes(game);
+
+const { Scenes } = createScenes(game);
+game.Scenes = Scenes;
 
 function loop() {
   game.activeScene.draw();
@@ -47,6 +50,11 @@ function handleClick() {
 }
 
 game.canvas.addEventListener("click", handleClick, false);
+
+game.changeScene = (newScene) => {
+  game.activeScene = newScene;
+  if (game.activeScene.init) game.activeScene.init();
+};
 
 game.changeScene(game.Scenes.START);
 

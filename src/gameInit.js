@@ -11,15 +11,15 @@ export default function createGameInit(game) {
     y: 50,
     draw() {
       game.context.drawImage(
-       this.spriteImage,
-       this.spriteX,
-       this.spriteY,
-       this.width,
-       this.height,
-       this.x,
-       this.y,
-       this.width,
-       this.height
+        this.spriteImage,
+        this.spriteX,
+        this.spriteY,
+        this.width,
+        this.height,
+        this.x,
+        this.y,
+        this.width,
+        this.height
       );
     },
   };

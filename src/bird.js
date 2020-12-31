@@ -5,8 +5,7 @@ function collideY(element1, element2) {
 }
 
 export default function createBird(game) {
-  game.currentBird = {};
-  game.createBird = () => {
+  return () => {
     const bird = {
       spriteImage: game.sprites,
       spriteX: 0,
@@ -18,8 +17,7 @@ export default function createBird(game) {
       velocity: 0,
       gravity: 0.15,
       update() {
-        console.log(game.ground);
-        if (collideY(bird, game.ground)) {
+        if (collideY(bird, game.currentGround)) {
           game.SONG_HIT.play();
           setTimeout(() => game.changeScene(game.Scenes.START), 500);
           return;

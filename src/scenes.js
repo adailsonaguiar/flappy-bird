@@ -1,20 +1,14 @@
 export default function createScenes(game) {
-  game.activeScene = {};
-
-  game.changeScene = (newScene) => {
-    game.activeScene = newScene;
-    if (game.activeScene.init) game.activeScene.init();
-  };
-
-  game.Scenes = {
+  const Scenes = {
     START: {
       init() {
         game.currentBird = game.createBird();
-        // game.currentPipes = game.createPipes();
+        game.currentGround = game.createGround();
+        game.currentPipes = game.createPipes();
       },
       draw() {
         game.background.draw();
-        game.ground.draw();
+        game.currentGround.draw();
         game.currentBird.draw();
         game.gameInit.draw();
       },
@@ -27,17 +21,18 @@ export default function createScenes(game) {
       draw() {
         game.background.draw();
         game.currentBird.draw();
-        game.pipes.draw();
-        game.ground.draw();
+        game.currentPipes.draw();
+        game.currentGround.draw();
       },
       click() {
         game.currentBird.jump();
       },
       update() {
         game.currentBird.update();
-        game.ground.update();
-        game.pipes.update();
+        game.currentGround.update();
+        game.currentPipes.update();
       },
     },
   };
+  return { Scenes };
 }

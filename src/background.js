@@ -8,6 +8,7 @@ export default function createBrackground(game) {
     x: 0,
     y: game.canvas.height - 204,
     draw() {
+      game.context.fillStyle = "#70c5ce";
       game.context.fillRect(0, 0, game.canvas.width, game.canvas.height);
       game.context.drawImage(
         background.spriteImage,
