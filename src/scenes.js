@@ -2,8 +2,8 @@ export default function createScenes(game) {
   const Scenes = {
     START: {
       init() {
-        game.currentBird = game.createBird();
         game.currentGround = game.createGround();
+        game.currentBird = game.createBird();
         game.currentPipes = game.createPipes();
       },
       draw() {
@@ -20,19 +20,20 @@ export default function createScenes(game) {
     GAME: {
       draw() {
         game.background.draw();
-        game.currentBird.draw();
         game.currentPipes.draw();
         game.currentGround.draw();
+        game.currentBird.draw();
       },
       click() {
         game.currentBird.jump();
       },
       update() {
-        game.currentBird.update();
+        console.log("aquiii=>", game.currentGround);
         game.currentGround.update();
         game.currentPipes.update();
+        game.currentBird.update();
       },
     },
   };
-  return { Scenes };
+  return Scenes;
 }

@@ -14,7 +14,7 @@ function gameFactory(game, newProperties) {
   return { ...game, ...newProperties };
 }
 
-game.sprites = createSprite();
+game = gameFactory(game, { sprites: createSprite() });
 
 game = gameFactory(game, createCanvas(game));
 
@@ -30,8 +30,7 @@ game.createBird = createBird(game);
 
 game.createPipes = createPipes(game);
 
-const { Scenes } = createScenes(game);
-game.Scenes = Scenes;
+game.Scenes = createScenes(game);
 
 function loop() {
   game.activeScene.draw();
