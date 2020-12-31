@@ -11,26 +11,26 @@ export default function createBrackground(game) {
       game.context.fillStyle = "#70c5ce";
       game.context.fillRect(0, 0, game.canvas.width, game.canvas.height);
       game.context.drawImage(
-        background.spriteImage,
-        background.spriteX,
-        background.spriteY,
-        background.width,
-        background.height,
-        background.x,
-        background.y,
-        background.width,
-        background.height
+        this.spriteImage,
+        this.spriteX,
+        this.spriteY,
+        this.width,
+        this.height,
+        this.x,
+        this.y,
+        this.width,
+        this.height
       );
       game.context.drawImage(
-        background.spriteImage,
-        background.spriteX,
-        background.spriteY,
-        background.width,
-        background.height,
-        background.x + background.width,
-        background.y,
-        background.width,
-        background.height
+        this.spriteImage,
+        this.spriteX,
+        this.spriteY,
+        this.width,
+        this.height,
+        this.x + this.width,
+        this.y,
+        this.width,
+        this.height
       );
     },
   };

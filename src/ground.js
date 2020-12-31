@@ -10,36 +10,36 @@ export default function createGround(game) {
       y: game.canvas.height - 112,
       draw() {
         game.context.drawImage(
-          ground.spriteImage,
-          ground.spriteX,
-          ground.spriteY,
-          ground.width,
-          ground.height,
-          ground.x,
-          ground.y,
-          ground.width,
-          ground.height
+          this.spriteImage,
+          this.spriteX,
+          this.spriteY,
+          this.width,
+          this.height,
+          this.x,
+          this.y,
+          this.width,
+          this.height
         );
 
         game.context.drawImage(
-          ground.spriteImage,
-          ground.spriteX,
-          ground.spriteY,
-          ground.width,
-          ground.height,
-          ground.x + ground.width,
-          ground.y,
-          ground.width,
-          ground.height
+          this.spriteImage,
+          this.spriteX,
+          this.spriteY,
+          this.width,
+          this.height,
+          this.x + this.width,
+          this.y,
+          this.width,
+          this.height
         );
       },
       update() {
         const MOVE_GROUND = 1;
-        const movement = ground.x - MOVE_GROUND;
-        const repeat = ground.width / 2;
+        const movement = this.x - MOVE_GROUND;
+        const repeat = this.width / 2;
 
-        if (movement > -repeat) ground.x = movement;
-        else ground.x = 0;
+        if (movement > -repeat) this.x = movement;
+        else this.x = 0;
       },
     };
     return ground;

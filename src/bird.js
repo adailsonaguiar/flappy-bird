@@ -17,16 +17,16 @@ export default function createBird(game) {
       velocity: 0,
       gravity: 0.15,
       update() {
-        if (collideY(bird, game.currentGround)) {
+        if (collideY(this, game.currentGround)) {
           game.SONG_HIT.play();
           setTimeout(() => game.changeScene(game.Scenes.START), 500);
           return;
         }
-        bird.velocity = bird.velocity + bird.gravity;
-        bird.y = bird.y + bird.velocity;
+        this.velocity = this.velocity + this.gravity;
+        this.y = this.y + this.velocity;
       },
       jump() {
-        bird.velocity = -4.6;
+        this.velocity = -4.6;
       },
       sceneBird: [
         { spriteX: 0, spriteY: 0 },
@@ -38,26 +38,26 @@ export default function createBird(game) {
         const FRAME_INTERVAL = 5;
         const BEATING_WINGS = game.frame % FRAME_INTERVAL === 0;
         if (BEATING_WINGS) {
-          if (bird.currentFrameBird < 2) {
-            bird.currentFrameBird++;
+          if (this.currentFrameBird < 2) {
+            this.currentFrameBird++;
           } else {
-            bird.currentFrameBird = 0;
+            this.currentFrameBird = 0;
           }
         }
       },
       draw() {
-        bird.updateFrameBird();
-        const { spriteX, spriteY } = bird.sceneBird[bird.currentFrameBird];
+        this.updateFrameBird();
+        const { spriteX, spriteY } = this.sceneBird[this.currentFrameBird];
         game.context.drawImage(
-          bird.spriteImage,
+          this.spriteImage,
           spriteX,
           spriteY,
-          bird.width,
-          bird.height,
-          bird.x,
-          bird.y,
-          bird.width,
-          bird.height
+          this.width,
+          this.height,
+          this.x,
+          this.y,
+          this.width,
+          this.height
         );
       },
     };

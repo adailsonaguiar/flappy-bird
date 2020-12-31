@@ -14,29 +14,23 @@ function gameFactory(game, newProperties) {
   return { ...game, ...newProperties };
 }
 
-game.sprites = createSprite();
+game = gameFactory(game, { sprites: createSprite() });
 
 game = gameFactory(game, createCanvas(game));
 
 game = gameFactory(game, { SONG_HIT: createSong(game) });
 
-// const { frame, gameInit } = createGameInit(game);
-// game.frame = frame;
-// game.gameInit = gameInit;
-
 game = gameFactory(game, createGameInit(game));
 
+game = gameFactory(game, { background: createBrackground(game) });
 
-game.background = createBrackground(game);
-
-game.createGround = createGround(game);
+game = gameFactory(game, { createGround: createGround(game) });
 
 game.createBird = createBird(game);
 
 game.createPipes = createPipes(game);
 
-const { Scenes } = createScenes(game);
-game.Scenes = Scenes;
+game.Scenes = createScenes(game);
 
 function loop() {
   game.activeScene.draw();
