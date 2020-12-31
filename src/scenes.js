@@ -28,7 +28,6 @@ export default function createScenes(game) {
         game.currentBird.jump();
       },
       update() {
-        console.log("aquiii=>", game.currentGround);
         game.currentGround.update();
         game.currentPipes.update();
         game.currentBird.update();

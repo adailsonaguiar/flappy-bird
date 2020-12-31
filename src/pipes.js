@@ -21,7 +21,7 @@ export default function createPipes(game) {
       pairs: [],
 
       draw() {
-        pipes.pairs.forEach(function (pair) {
+        this.pairs.forEach(function (pair) {
           const drawYRandom = pair.y;
           const pipeTopX = pair.x;
           const pipeTopY = drawYRandom;
@@ -59,14 +59,14 @@ export default function createPipes(game) {
       update() {
         const framesProxPipes = game.frame % 100 === 0;
         if (framesProxPipes) {
-          pipes.pairs.push({
+          this.pairs.push({
             x: game.canvas.width,
             // y: -250 * Math.random() + 1,
             y: -300,
           });
         }
 
-        pipes.pairs.forEach(function (pair) {
+        this.pairs.forEach(function (pair) {
           pair.x = pair.x - 2;
 
           if (collideX(game.currentBird, pair)) {
